@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Fortune Garuda 1000 — Free Demo</title>
+<style>
+  html,body{margin:0;padding:0;height:100%;background:#080808;overflow:hidden}
+  body{display:flex;flex-direction:column;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  #bar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;
+       padding:6px 12px;background:#120e09;color:#f4e4c4;gap:8px}
+  #bar .name{font-size:14px;font-weight:600;letter-spacing:.4px;white-space:nowrap;
+             overflow:hidden;text-overflow:ellipsis}
+  #bar .tag{font-size:10px;color:#d7b77e;border:1px solid #b28c4c;border-radius:999px;
+            padding:2px 8px;white-space:nowrap}
+  #reload{font:inherit;font-size:12px;color:#f4e4c4;background:#2e2313;border:1px solid #b28c4c;
+          border-radius:6px;padding:4px 10px;cursor:pointer;flex:0 0 auto}
+  #reload:hover{background:#3b2d16}
+  #stage{flex:1 1 auto;position:relative;background:#080808;overflow:hidden}
+  #game{position:absolute;inset:0;width:100%;height:100%;border:0;display:none}
+  #splash{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+          justify-content:center;background:#080808;color:#f4e4c4;text-align:center;padding:20px}
+  #splash p{margin:0 0 14px;font-size:15px}
+  .track{width:min(60vw,260px);height:5px;border-radius:5px;background:#302718;overflow:hidden}
+  .indeterminate{position:relative}
+  .indeterminate::before{content:"";position:absolute;inset:0;width:35%;
+       background:linear-gradient(90deg,#ad7938,#f4d08b);border-radius:5px;
+       animation:flow 1.4s ease-in-out infinite}
+  @keyframes flow{0%{transform:translateX(-110%)}100%{transform:translateX(390%)}}
+  @media(prefers-reduced-motion:reduce){.indeterminate::before{animation:none}}
+  footer{flex:0 0 auto;background:#120e09;color:#a99b85;font-size:10px;
+         padding:4px 12px;text-align:center}
+</style>
+</head>
+<body>
+  <div id="bar">
+    <span class="name">Fortune Garuda 1000</span>
+    <span class="tag">FREE DEMO</span>
+    <button id="reload" type="button">Reload</button>
+  </div>
+
+  <div id="stage">
+    <iframe id="game" title="Fortune Garuda 1000 demo game"></iframe>
+    <div id="splash">
+      <p>Loading game…</p>
+      <div class="track indeterminate"></div>
+    </div>
+  </div>
+
+  <footer>
+    Free-to-play demo · No wagering &amp; no real money · Outcomes and credits are simulated
+  </footer>
+
+<script>
+  // Swap this URL if the hosting site rotates game builds.
+  const GAME_URL = new URLSearchParams(location.search).get('game') ||
+    'https://app.888bo.cc/LandingPage/FortuneGaruda1000-WebGL-Moderate_Loop_20261029180152/index.html';
+
+  const frame  = document.getElementById('game');
+  const splash = document.getElementById('splash');
+
+  function loadGame() {
+    splash.style.display = 'flex';
+    frame.style.display = 'none';
+    frame.src = GAME_URL;
+  }
+
+  frame.addEventListener('load', () => {
+    frame.style.display = 'block';
+    splash.style.display = 'none';
+  });
+
+  document.getElementById('reload').addEventListener('click', loadGame);
+  loadGame();
+</script>
+</body>
+</html>
